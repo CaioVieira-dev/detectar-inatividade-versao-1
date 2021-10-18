@@ -17,7 +17,11 @@ import { useIdleTimer } from 'react-idle-timer'
   const handleOnIdle = () => {
     setLastEvent('idle')
 alert('inativo')
+/**
+ * inserir logica de inatividade
+ */
 }
+const handleAction =()=>{console.log('action')}
 
   const {
     reset,
@@ -32,9 +36,8 @@ alert('inativo')
     timeout,
     onActive: handleOnActive,
     onIdle: handleOnIdle,
-    crossTab: {
-      emitOnAllTabs: false
-    }
+    onAction:handleAction,
+    crossTab: true
   })
 
   const handleReset = () => reset()
@@ -52,20 +55,7 @@ alert('inativo')
       setElapsed(getElapsedTime())
       setLeader(isLeader())
     }, 1000)
-    function handleVisibilityChange(){
-      if(document.visibilityState === 'visible'){
-        handleReset()
-        console.log('resetado \nRemaining Time:',getRemainingTime())
-      }else{
-        handlePause()
-        console.log('pausado \nRemaining Time:',getRemainingTime())
-
-      }
-    }
-    document.addEventListener('visibilitychange',handleVisibilityChange,false)
-    return ()=>{
-      document.removeEventListener('visibilitychange',handleVisibilityChange)
-    }
+ 
   }, [])
 
   return (
